@@ -1,0 +1,77 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/shop_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ''
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 20
+          max-idle: 10
+          min-idle: 5
+          max-wait: 2000ms
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+# 日志
+logging:
+  level:
+    com.shop: DEBUG
+    org.springframework.web: INFO
+
+# 应用自定义配置
+shop:
+  jwt:
+    secret: shop_jwt_secret_2026_very_long_key_for_hmac_sha256
+    expire: 604800     # 7天（秒）
+    admin-expire: 28800 # 8小时（秒）
+
+  upload:
+    path: uploads   # 相对于工作目录，保存到 shop-backend/uploads/
+
+  wx:
+    app-id: your_wx_appid
+    app-secret: your_wx_appsecret
+
+  wx-pay:
+    app-id: your_wx_pay_appid
+    mch-id: your_mch_id
+    private-key-path: classpath:wx/apiclient_key.pem
+    merchant-serial-number: your_serial_number
+    api-v3-key: your_api_v3_key
+    notify-url: https://your-domain.com/api/pay/notify
+    refund-notify-url: https://your-domain.com/api/refund/notify
+
+  group:
+    default-required-count: 3        # 默认需要3人拼团
+    default-expire-hours: 48          # 默认48小时有效
