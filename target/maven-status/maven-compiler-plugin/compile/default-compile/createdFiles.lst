@@ -1,0 +1,3 @@
+com\shop\common\controller\UploadController.class
+com\shop\config\AdminPasswordFixer.class
+com\shop\config\AppConfig.class
